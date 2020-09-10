@@ -1,0 +1,30 @@
+.movie-db-actor {
+  box-sizing: border-box;
+}
+
+.movie-db-actor img {
+  width: 40%;
+  height: auto;
+  float: right;
+  box-sizing: border-box;
+}
+
+.movie-db-actor-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  color:#fff;
+  float: left;
+  margin: 10px 20px;
+  width: 40%;
+  box-sizing: border-box;
+}
+
+.movie-db-actor-character {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  color:#fff;
+  float: left;
+  margin: 0 20px 10px 20px;
+  width: 40%;
+  box-sizing: border-box;
+}

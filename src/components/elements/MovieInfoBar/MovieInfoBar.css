@@ -1,0 +1,65 @@
+.movie-db-movieinfobar {
+  width: 100%;
+  min-height: 80px;
+  position: relative;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  margin-bottom: 100px;
+}
+
+.movie-db-movieinfobar-content-wrapper {
+  background: url("../../../images/bg_header2.png") left top repeat;
+  min-height: 60px;
+  padding: 10px 20px 0px 20px;
+}
+
+.movie-db-movieinfobar-content-bg {
+  width: 100%;
+  height: 80px;
+  background: url("../../../images/bg_header.png") left top repeat-x;
+}
+
+.movie-db-movieinfobar-content {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.movie-db-movieinfobar-content-col {
+  float: left;
+  width: 25%;
+  box-sizing: border-box;
+  padding: 10px 20px 0 0;
+}
+
+.movie-db-movieinfobar-info {
+  padding: 5px 0 0 10px;
+  float: left;
+}
+
+.fa-time,
+.fa-revenue,
+.fa-star,
+.fa-budget {
+  float: left;
+  margin-top: 12px;
+}
+
+@media screen and (max-width: 960px) {
+  .movie-db-movieinfobar {
+    font-size: 16px;
+    margin-bottom:0;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .movie-db-movieinfobar-content-col {
+    float: none;
+    width: 100%;
+  }
+  .movie-db-movieinfobar-info {
+    float: none;
+  }
+}

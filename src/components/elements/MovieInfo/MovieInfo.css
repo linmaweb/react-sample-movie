@@ -1,0 +1,121 @@
+.movie-db-movieinfo {
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100%;
+  height: 600px;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  animation: animateMovieinfo 1s;
+}
+
+@keyframes animateMovieinfo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.movie-db-movieinfo-content {
+  max-width: 1280px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: rgb(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.movie-db-movieinfo-thumb {
+  width: 350px;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+}
+
+.movie-db-movieinfo-text {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: auto;
+  padding: 40px;
+  color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: absolute;
+  right: 360px;
+}
+
+.movie-db-movieinfo-text h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 48px;
+  margin: 0;
+  text-shadow: #000 1px 1px;
+}
+
+.movie-db-movieinfo-text h3 {
+  font-size: 16px;
+  line-height: 0;
+  margin-top: 30px;
+}
+
+.movie-db-movieinfo-text p {
+  font-family: sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.movie-db-rating {
+  width: 250px;
+  height: 20px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.movie-db-score {
+  position: absolute;
+  margin: 0;
+  right: 0px;
+  top: -3px;
+}
+
+.movie-db-director {
+  margin: 0;
+}
+
+.fa-film {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  color: #fff;
+}
+
+meter::-webkit-meter-bar {
+  background: #FFF;
+  width: 200px;
+}
+
+meter::-webkit-meter-optimum-value {
+  background: linear-gradient(to bottom, #16d47b);
+}
+
+meter::-webkit-meter-suboptimum-value {
+  background: linear-gradient(to bottom, #fbb450);
+}
+
+meter::-webkit-meter-even-less-good-value {
+  background: linear-gradient(to bottom, #ee5f5b);
+}
+
+@media screen and (max-width: 480px) {
+  .movie-db-movieinfo{
+    height:auto;
+  }
+  .movie-db-movieinfo-thumb {
+    display: none;
+  }
+  .movie-db-movieinfo-text{
+    right:0;
+    position: relative;
+  }
+}

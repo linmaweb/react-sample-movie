@@ -1,0 +1,20 @@
+.movie-db-loadmorebtn {
+  background: #000;
+  opacity: 0.5;
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.movie-db-loadmorebtn p {
+  font-family: 'Oswald', sans-serif;
+  font-size:32px;
+  padding: 12px;
+}
+
+.movie-db-loadmorebtn:hover {
+  opacity: 0.8;
+}
