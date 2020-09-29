@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { API_URL, API_KEY } from "../../config";
 import MovieInfo from "../elements/MovieInfo/MovieInfo";
 import MovieInfoBar from "../elements/MovieInfoBar/MovieInfoBar";
@@ -7,97 +7,78 @@ import Actor from "../elements/Actor/Actor";
 import LoadMoreSpinner from "../elements/LoadMoreSpinner/LoadMoreSpinner";
 import "./Movie.css";
 
-class Movie extends Component {
-  state = {
-    movie: null,
-    actors: null,
-    directors: [],
-    loading: false,
-  };
+const Movie = (props) => {
+  const [movie, setMovie] = useState(null);
+  const [actors, setActors] = useState(null);
+  const [directors, setDirectors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  componentDidMount() {
-    if (localStorage.getItem(`${this.props.match.params.movieId}`)) {
-      const state = JSON.parse(
-        localStorage.getItem(`${this.props.match.params.movieId}`)
-      );
-      this.setState({ ...state });
-    } else {
-      this.setState({ loading: true });
-      const endpoint = `${API_URL}movie/${this.props.match.params.movieId}?api_key=${API_KEY}&language=en-US`;
-      this.fetchItems(endpoint);
+  useEffect(() => {
+    setLoading(true);
+    const endpoint = `${API_URL}movie/${props.match.params.movieId}?api_key=${API_KEY}&language=en-US`;
+    fetchItems(endpoint);
+  }, []);
+
+  useEffect(() => {
+    const endpoint = `${API_URL}movie/${props.match.params.movieId}/credits?api_key=${API_KEY}`;
+    try {
+      fetch(endpoint)
+        .then((result) => result.json())
+        .then((result) => {
+          const directors = result.crew.filter(
+            (member) => member.job === "Director"
+          );
+          setActors(result.cast);
+          setDirectors(directors);
+          setLoading(false);
+        });
+    } catch (e) {
+      console.log("There was a problem or the request was cancelled.");
     }
-  }
+  }, [movie]);
 
-  fetchItems = (endpoint) => {
-    fetch(endpoint)
-      .then((result) => result.json())
-      .then((result) => {
-        console.log;
-        if (result.status_code) {
-          this.setState({ loading: false });
-        } else {
-          this.setState({ movie: result }, () => {
-            const endpoint = `${API_URL}movie/${this.props.match.params.movieId}/credits?api_key=${API_KEY}`;
-            fetch(endpoint)
-              .then((result) => result.json())
-              .then((result) => {
-                const directors = result.crew.filter(
-                  (member) => member.job === "Director"
-                );
-
-                this.setState(
-                  {
-                    actors: result.cast,
-                    directors,
-                    loading: false,
-                  },
-                  () => {
-                    localStorage.setItem(
-                      `${this.props.match.params.movieId}`,
-                      JSON.stringify(this.state)
-                    );
-                  }
-                );
-              });
-          });
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+  const fetchItems = (endpoint) => {
+    try {
+      fetch(endpoint)
+        .then((result) => result.json())
+        .then((result) => {
+          if (result.status_code) {
+            setLoading(false);
+          } else {
+            setMovie(result);
+          }
+        });
+    } catch (e) {
+      console.log("There was a problem or the request was cancelled.");
+    }
   };
 
-  render() {
-    return (
-      <div className="movie-db-movie">
-        {this.state.movie ? (
-          <div>
-            <MovieInfo
-              movie={this.state.movie}
-              directors={this.state.directors}
-            />
-            <MovieInfoBar
-              movie={this.state.movie}
-              time={this.state.movie.runtime}
-              budget={this.state.movie.budget}
-              revenue={this.state.movie.revenue}
-            />
-          </div>
-        ) : null}
-        {this.state.actors ? (
-          <div className="movie-db-movie-grid">
-            <Grid header={"Actors"}>
-              {this.state.actors.map((element, i) => {
-                return <Actor key={i} actor={element} />;
-              })}
-            </Grid>
-          </div>
-        ) : null}
-        {!this.state.actors && !this.state.loading ? (
-          <h1>No Movie Found!</h1>
-        ) : null}
-        {this.state.loading ? <LoadMoreSpinner /> : null}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="movie-db-movie">
+      {movie ? (
+        <div>
+          <MovieInfo movie={movie} directors={directors} />
+          <MovieInfoBar
+            movie={movie}
+            time={movie.runtime}
+            budget={movie.budget}
+            revenue={movie.revenue}
+          />
+        </div>
+      ) : null}
+      {actors ? (
+        <div className="movie-db-movie-grid">
+          <Grid header={"Actors"}>
+            {actors.map((element, i) => {
+              return <Actor key={i} actor={element} />;
+            })}
+          </Grid>
+        </div>
+      ) : null}
+      {!actors && !loading ? <h1>No Movie Found!</h1> : null}
+      {loading ? <LoadMoreSpinner /> : null}
+    </div>
+  );
+};
 
 export default Movie;
